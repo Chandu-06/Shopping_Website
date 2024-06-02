@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Payment</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body class="background-image">
+    <h1>Payment Page</h1>
+    <h2>Selected Products:</h2>
+    <div id="selected-products">
+        <!-- Selected products will be displayed here -->
+    </div>
+    <h2>Select Payment Method:</h2>
+    <label><input type="radio" name="payment-method" value="card"> Credit/Debit Card</label><br>
+    <label><input type="radio" name="payment-method" value="cash"> Pay on Delivery</label><br>
+    <button onclick="processPayment()">Pay Now</button>
+
+    <script>
+        function displaySelectedProducts() {
+            let cart = sessionStorage.getItem('cart');
+            cart = cart ? JSON.parse(cart) : [];
+
+            const selectedProductsElement = document.getElementById('selected-products');
+            selectedProductsElement.innerHTML = '';
+
+            cart.forEach(item => {
+                const itemElement = document.createElement('div');
+                itemElement.innerHTML = `
+                    <img src="${item.image}" alt="${item.name}">
+                    <p>${item.name} - ${item.price}</p>
+                `;
+                selectedProductsElement.appendChild(itemElement);
+            });
+        }
+
+        function processPayment() {
+            const paymentMethod = document.querySelector('input[name="payment-method"]:checked').value;
+            if (paymentMethod === 'card') {
+                alert('Redirecting to credit/debit card payment...');
+                // Code to redirect to payment gateway for card payment
+            } else {
+                alert('Your order will be delivered soon. Thank you for shopping with us!');
+                // Code to process pay on delivery
+            }
+        }
+
+        displaySelectedProducts();
+    </script>
+</body>
+</html>

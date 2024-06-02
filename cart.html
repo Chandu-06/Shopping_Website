@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Shopping Cart</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body class="background-image">
+    <h1>Shopping Cart</h1>
+    <div id="cart-items">
+        <!-- Cart items will be displayed here -->
+    </div>
+    <button onclick="checkout()">Proceed to Payment</button>
+
+    <script>
+        function displayCart() {
+            let cart = localStorage.getItem('cart');
+            cart = cart ? JSON.parse(cart) : [];
+
+            const cartItemsElement = document.getElementById('cart-items');
+            cartItemsElement.innerHTML = '';
+
+            cart.forEach(item => {
+                const itemElement = document.createElement('div');
+                itemElement.innerHTML = `
+                    <img src="${item.image}" alt="${item.name}">
+                    <p>${item.name} - ${item.price}</p>
+                `;
+                cartItemsElement.appendChild(itemElement);
+            });
+        }
+
+        function checkout() {
+            // Store cart data in sessionStorage and redirect to payment page
+            sessionStorage.setItem('cart', localStorage.getItem('cart'));
+            window.location.href = 'payment.html';
+        }
+
+        displayCart();
+    </script>
+</body>
+</html>
